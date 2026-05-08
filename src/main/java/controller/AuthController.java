@@ -1,3 +1,6 @@
+// Manejo de autenticación de la aplicacion.
+// DTO = data transfer object, es un objeto que se utiliza para transferir datos entre capas de la aplicacion.
+
 package controller;
 
 import dto.AuthRequest;

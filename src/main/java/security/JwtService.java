@@ -3,7 +3,6 @@ package security;
 import model.UsuarioModel;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import security.SeguridadConfig;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -19,7 +18,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    // 🔹 Generar token
+    //  Generar token
     public String generateToken(UsuarioModel user) {
         return Jwts.builder()
                 .setSubject(user.getUsername())
@@ -30,23 +29,23 @@ public class JwtService {
                 .compact();
     }
 
-    // 🔹 Extraer username
+    //  Extraer username
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    // 🔹 Validar token
+    //  Validar token
     public boolean isTokenValid(String token, UsuarioModel user) {
         final String username = extractUsername(token);
         return username.equals(user.getUsername()) && !isTokenExpired(token);
     }
 
-    // 🔹 Verificar expiración
+    //  Verificar expiración
     private boolean isTokenExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
     }
 
-    // 🔹 Obtener datos del token
+    //  Obtener datos del token
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
